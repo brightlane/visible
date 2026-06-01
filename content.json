@@ -1,0 +1,130 @@
+{
+  "site": {
+    "name": "Visible USA Offer",
+    "base_url": "https://brightlane.github.io/visible",
+    "brand_name": "Visible",
+    "official_url": "https://www.visible.com/",
+    "affiliate_url": "https://convert.ctypy.com/aff_c?offer_id=29563&aff_id=21885",
+    "locale": "en-US",
+    "country": "US",
+    "description": "A data-driven Visible affiliate site for USA visitors."
+  },
+  "hubs": [
+    {
+      "slug": "review",
+      "title": "Visible Review",
+      "description": "A practical review of Visible for USA visitors."
+    },
+    {
+      "slug": "faq",
+      "title": "Visible FAQ",
+      "description": "Answers to common Visible questions."
+    },
+    {
+      "slug": "alternatives",
+      "title": "Visible Alternatives",
+      "description": "Other wireless options compared with Visible."
+    },
+    {
+      "slug": "guide",
+      "title": "Wireless Guides",
+      "description": "Practical wireless plans and usage guides."
+    },
+    {
+      "slug": "best",
+      "title": "Best Wireless Picks",
+      "description": "Best-of pages by budget, speed, and usage goal."
+    },
+    {
+      "slug": "coverage",
+      "title": "Coverage Pages",
+      "description": "Pages focused on coverage and network questions."
+    },
+    {
+      "slug": "deals",
+      "title": "Deal Pages",
+      "description": "Promotional and savings-focused pages."
+    },
+    {
+      "slug": "switch",
+      "title": "Switching Pages",
+      "description": "Pages for people changing carriers."
+    },
+    {
+      "slug": "data",
+      "title": "Data Plan Pages",
+      "description": "Pages focused on data usage and plan fit."
+    }
+  ],
+  "home": {
+    "title": "Visible USA Offer | Simple Wireless for USA Visitors",
+    "description": "Discover Visible for USA visitors. Simple wireless plans, straightforward pricing, and an easy online signup flow.",
+    "h1": "Visible for USA Visitors Who Want Simple Wireless",
+    "hero_badge": "Simple plans • Easy signup • USA-only promo",
+    "hero_lead": "If you want a wireless plan that feels simple, modern, and easy to manage, Visible is built for that. It keeps the pitch straightforward and makes the offer easy to understand fast."
+  },
+  "faq": [
+    {
+      "question": "What is Visible?",
+      "answer": "Visible is a wireless service focused on simple plans, online management, and straightforward pricing."
+    },
+    {
+      "question": "Who is Visible best for?",
+      "answer": "Visible is a strong fit for people who want simple phone service, easy setup, and no-frills plan management."
+    },
+    {
+      "question": "Does Visible use a major network?",
+      "answer": "Visible runs on Verizon's network ecosystem, which is a key reason many shoppers compare it for coverage."
+    },
+    {
+      "question": "Is this site for USA visitors only?",
+      "answer": "Yes. The affiliate offer and page targeting are intended for USA visitors."
+    },
+    {
+      "question": "Can I switch to Visible easily?",
+      "answer": "Many visitors use Visible when they want a simpler mobile plan and a straightforward online signup flow."
+    }
+  ],
+  "keywords": [
+    { "slug": "visible-review", "head_term": "Visible review" },
+    { "slug": "visible-coverage", "head_term": "Visible coverage" },
+    { "slug": "visible-deals", "head_term": "Visible deals" },
+    { "slug": "visible-unlimited", "head_term": "Visible unlimited" },
+    { "slug": "visible-data", "head_term": "Visible data" },
+    { "slug": "visible-switch", "head_term": "switch to Visible" },
+    { "slug": "visible-phone-plan", "head_term": "Visible phone plan" },
+    { "slug": "visible-wireless", "head_term": "Visible wireless" },
+    { "slug": "visible-by-verizon", "head_term": "Visible by Verizon" },
+    { "slug": "visible-alternative", "head_term": "Visible alternative" }
+  ],
+  "modifiers": [
+    "for beginners",
+    "for adults",
+    "for travelers",
+    "fast",
+    "simple",
+    "at home",
+    "monthly",
+    "with easy signup",
+    "with coverage focus",
+    "for busy people"
+  ],
+  "page_types": [
+    "best",
+    "guide",
+    "compare",
+    "alternatives",
+    "faq",
+    "coverage",
+    "deals",
+    "switch",
+    "data",
+    "review"
+  ],
+  "theme": {
+    "accent": "#22c55e",
+    "bg": "#07111f",
+    "card": "#101a2d",
+    "text": "#e5e7eb"
+  }
+}
