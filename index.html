@@ -1,4 +1,277 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-US">
 <head>
-    <meta charset="UTF
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <base href="/visible/">
+  <title>Visible USA Offer | Clean Affiliate Landing Page</title>
+  <meta name="description" content="A clean, visible affiliate landing page for USA visitors with a strong call to action and clear offer presentation.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#08111f">
+  <link rel="canonical" href="https://brightlane.github.io/visible/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Visible USA Offer">
+  <meta property="og:title" content="Visible USA Offer | Clean Affiliate Landing Page">
+  <meta property="og:description" content="A clean, visible affiliate landing page with clear CTA placement for USA visitors.">
+  <meta property="og:url" content="https://brightlane.github.io/visible/">
+  <meta property="og:image" content="https://brightlane.github.io/visible/og.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Visible USA Offer | Clean Affiliate Landing Page">
+  <meta name="twitter:description" content="A clean, visible affiliate landing page with clear CTA placement for USA visitors.">
+  <meta name="twitter:image" content="https://brightlane.github.io/visible/og.jpg">
+
+  <style>
+    :root{
+      --bg:#07111f; --card:#101a2d; --line:#23314a; --text:#e5e7eb; --muted:#94a3b8;
+      --accent:#22c55e; --accent2:#38bdf8; --shadow:0 24px 70px rgba(0,0,0,.35); --max:1160px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:Inter,Arial,Helvetica,sans-serif; line-height:1.6; color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(34,197,94,.12), transparent 28%),
+        linear-gradient(180deg, var(--bg) 0%, #08101d 100%);
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:20px}
+    .topbar{
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      color:var(--muted); font-size:.95rem; margin-bottom:14px;
+    }
+    .nav{display:flex; gap:10px; flex-wrap:wrap}
+    .nav a{
+      text-decoration:none; padding:8px 12px; border:1px solid var(--line);
+      border-radius:999px; background:rgba(255,255,255,.03); color:#dbeafe;
+    }
+    .hero{
+      background:linear-gradient(180deg, rgba(16,26,45,.98), rgba(10,18,34,.98));
+      border:1px solid var(--line); border-radius:28px; box-shadow:var(--shadow); overflow:hidden;
+    }
+    .hero-inner{
+      display:grid; grid-template-columns:1.1fr .9fr; gap:24px; padding:34px; align-items:center;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      border:1px solid rgba(34,197,94,.22); background:rgba(34,197,94,.1); color:#bbf7d0;
+      padding:7px 12px; border-radius:999px; font-size:.86rem; font-weight:800;
+    }
+    h1{margin:14px 0 14px; font-size:clamp(2.1rem, 5vw, 4.4rem); line-height:1.02; letter-spacing:-.04em}
+    .lead{font-size:1.08rem; color:#cbd5e1; margin:0 0 22px; max-width:62ch}
+    .btns{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      min-height:54px; padding:14px 20px; border-radius:16px; text-decoration:none;
+      font-weight:900; display:inline-flex; align-items:center; justify-content:center;
+      border:1px solid transparent; transition:transform .15s ease, filter .15s ease;
+    }
+    .btn:hover{transform:translateY(-1px); filter:brightness(1.04)}
+    .primary{background:linear-gradient(135deg, var(--accent), #16a34a); color:#04120a}
+    .secondary{background:rgba(255,255,255,.03); border-color:var(--line); color:var(--text)}
+    .trust{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; color:#dbeafe; font-size:.92rem;
+    }
+    .trust span{
+      background:rgba(255,255,255,.04); border:1px solid var(--line);
+      padding:8px 10px; border-radius:999px;
+    }
+    .mock{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line); border-radius:24px; padding:22px;
+    }
+    .screen{
+      background:linear-gradient(180deg, #0f172a, #09101c);
+      border:1px solid #263554; border-radius:22px; padding:18px; min-height:320px;
+      display:flex; flex-direction:column; justify-content:space-between;
+    }
+    .screen-head{display:flex; justify-content:space-between; gap:12px; align-items:center; color:#cbd5e1; font-size:.9rem}
+    .bars{display:flex; gap:6px}
+    .bars i{width:10px; height:10px; border-radius:999px; background:#38bdf8; display:block; opacity:.9}
+    .bars i:nth-child(2){background:#22c55e}
+    .bars i:nth-child(3){background:#f59e0b}
+    .lesson{margin:20px 0; display:grid; gap:12px}
+    .lesson-card{
+      background:rgba(255,255,255,.03); border:1px solid var(--line);
+      border-radius:16px; padding:14px 14px 12px;
+    }
+    .lesson-title{display:flex; justify-content:space-between; gap:10px; align-items:center; font-weight:700; margin-bottom:6px}
+    .bar{height:10px; border-radius:999px; background:#0b1220; border:1px solid #20304b; overflow:hidden}
+    .bar > span{display:block; height:100%; width:72%; background:linear-gradient(90deg,#38bdf8,#22c55e)}
+    .section{
+      margin-top:22px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+    }
+    .card{
+      background:rgba(16,26,45,.95); border:1px solid var(--line); border-radius:24px;
+      padding:22px; box-shadow:0 12px 36px rgba(0,0,0,.16);
+    }
+    .card h2,.card h3{margin:0 0 10px; line-height:1.15}
+    .card p,.card li{color:var(--muted)}
+    .card ul{margin:0; padding-left:18px}
+    .faq details{
+      background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:16px;
+      padding:14px 16px; margin-top:12px;
+    }
+    .faq summary{cursor:pointer; font-weight:700; color:#fff}
+    .faq p{margin:10px 0 0}
+    .disclosure{
+      margin-top:18px; padding:18px 20px; border-radius:20px;
+      background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.18);
+      color:#fecaca; font-size:.95rem;
+    }
+    .footer{padding:22px 4px 8px; color:var(--muted); font-size:.9rem; text-align:center}
+    .sticky-cta{
+      position:fixed; left:0; right:0; bottom:0; z-index:20;
+      background:rgba(7,17,31,.88); backdrop-filter:blur(14px);
+      border-top:1px solid rgba(35,49,74,.9); padding:12px 16px;
+    }
+    .sticky-cta .inner{
+      max-width:var(--max); margin:0 auto; display:flex; gap:12px;
+      justify-content:space-between; align-items:center; flex-wrap:wrap;
+    }
+    .sticky-cta strong{display:block}
+    .sticky-cta small{color:var(--muted)}
+    .mini-btn{
+      padding:12px 16px; border-radius:14px; background:linear-gradient(135deg,var(--accent),#16a34a);
+      color:#04120a; text-decoration:none; font-weight:900; min-height:46px; display:inline-flex;
+      align-items:center; justify-content:center;
+    }
+    @media (max-width: 860px){
+      .hero-inner,.section{grid-template-columns:1fr}
+      .mock{order:-1}
+      .hero-inner{padding:20px}
+      .section{gap:14px}
+    }
+    @media (max-width: 640px){
+      .wrap{padding:14px}
+      h1{font-size:clamp(1.9rem, 11vw, 3rem)}
+      .btns{display:grid; grid-template-columns:1fr}
+      .btn{width:100%}
+      .sticky-cta .inner{flex-direction:column; align-items:stretch}
+      .mini-btn{width:100%}
+      .lead{font-size:1rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="nav">
+        <a href="#details">Details</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div>USA visitors only • Affiliate disclosure below</div>
+    </div>
+
+    <main class="hero">
+      <div class="hero-inner">
+        <section>
+          <span class="pill">Short daily lessons • Voice practice • Chat-style learning</span>
+          <h1>Visible USA Offer for Simple, Clear Promotion</h1>
+          <p class="lead">
+            This page is designed to keep the offer visible above the fold, repeat the call to
+            action, and make the next step obvious for visitors.
+          </p>
+          <div class="btns">
+            <a class="btn primary" href="https://convert.ctypy.com/aff_c?offer_id=29563&aff_id=21885" rel="sponsored nofollow noopener noreferrer">Start with the Offer</a>
+            <a class="btn secondary" href="#details">Explore the page</a>
+          </div>
+          <div class="trust" aria-label="Trust signals">
+            <span>Clear CTA</span>
+            <span>Mobile-friendly</span>
+            <span>USA-only promo</span>
+          </div>
+        </section>
+
+        <aside class="mock" aria-label="Learning preview">
+          <div class="screen">
+            <div class="screen-head">
+              <strong>Promo preview</strong>
+              <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
+            </div>
+            <div class="lesson">
+              <div class="lesson-card">
+                <div class="lesson-title"><span>Step 1</span><span>See the offer</span></div>
+                <div class="bar"><span></span></div>
+              </div>
+              <div class="lesson-card">
+                <div class="lesson-title"><span>Step 2</span><span>Click to continue</span></div>
+                <div class="bar"><span style="width:84%"></span></div>
+              </div>
+              <div class="lesson-card">
+                <div class="lesson-title"><span>Step 3</span><span>Take action</span></div>
+                <div class="bar"><span style="width:66%"></span></div>
+              </div>
+            </div>
+            <div style="color:#cbd5e1;font-size:.92rem;">
+              The CTA is repeated in multiple places so it stays visible.
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <section class="section" id="details">
+      <article class="card">
+        <h2>What This Page Does</h2>
+        <p>
+          It presents the affiliate offer clearly, with a visible CTA, a short explanation,
+          and a sticky button at the bottom for easy access.
+        </p>
+      </article>
+      <article class="card">
+        <h2>Why It Converts</h2>
+        <p>
+          People should understand the offer in seconds, see the button immediately, and not
+          have to hunt for the next step.
+        </p>
+      </article>
+      <article class="card">
+        <h2>What Visitors Get</h2>
+        <ul>
+          <li>Simple promotion.</li>
+          <li>Clear call to action.</li>
+          <li>Mobile-first layout.</li>
+          <li>Affiliate disclosure.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="card faq" id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>What is this page for?</summary>
+        <p>This page is meant to promote the affiliate offer clearly and visibly.</p>
+      </details>
+      <details>
+        <summary>Is the offer link included?</summary>
+        <p>Yes, the main CTA and sticky CTA both use your affiliate URL.</p>
+      </details>
+      <details>
+        <summary>Is it mobile-friendly?</summary>
+        <p>Yes, the layout stacks cleanly on smaller screens.</p>
+      </details>
+    </section>
+
+    <section class="disclosure">
+      <strong>Affiliate disclosure:</strong> This page contains affiliate links. If you click and make a purchase, I may earn a commission at no extra cost to you.
+    </section>
+
+    <div class="footer">© 2026 • Visible USA offer</div>
+  </div>
+
+  <div class="sticky-cta" role="region" aria-label="Sticky call to action">
+    <div class="inner">
+      <div>
+        <strong>Ready to start?</strong>
+        <small>Use the button below to continue.</small>
+      </div>
+      <a class="mini-btn" href="https://convert.ctypy.com/aff_c?offer_id=29563&aff_id=21885" rel="sponsored nofollow noopener noreferrer">Start with the Offer</a>
+    </div>
+  </div>
+</body>
+</html>
