@@ -85,30 +85,6 @@
       "answer": "Many visitors use Visible when they want a simpler mobile plan and a straightforward online signup flow."
     }
   ],
-  "keywords": [
-    { "slug": "visible-review", "head_term": "Visible review" },
-    { "slug": "visible-coverage", "head_term": "Visible coverage" },
-    { "slug": "visible-deals", "head_term": "Visible deals" },
-    { "slug": "visible-unlimited", "head_term": "Visible unlimited" },
-    { "slug": "visible-data", "head_term": "Visible data" },
-    { "slug": "visible-switch", "head_term": "switch to Visible" },
-    { "slug": "visible-phone-plan", "head_term": "Visible phone plan" },
-    { "slug": "visible-wireless", "head_term": "Visible wireless" },
-    { "slug": "visible-by-verizon", "head_term": "Visible by Verizon" },
-    { "slug": "visible-alternative", "head_term": "Visible alternative" }
-  ],
-  "modifiers": [
-    "for beginners",
-    "for adults",
-    "for travelers",
-    "fast",
-    "simple",
-    "at home",
-    "monthly",
-    "with easy signup",
-    "with coverage focus",
-    "for busy people"
-  ],
   "page_types": [
     "best",
     "guide",
@@ -121,10 +97,46 @@
     "data",
     "review"
   ],
-  "theme": {
-    "accent": "#22c55e",
-    "bg": "#07111f",
-    "card": "#101a2d",
-    "text": "#e5e7eb"
-  }
+  "audiences": [
+    "budget shoppers",
+    "travelers",
+    "families",
+    "single-line users",
+    "heavy data users",
+    "light data users",
+    "streamers",
+    "remote workers",
+    "seniors",
+    "students"
+  ],
+  "problems": [
+    "want a lower monthly phone bill",
+    "need coverage confidence before switching",
+    "want simple setup without store visits",
+    "need enough data for streaming",
+    "want a plan that is easy to manage",
+    "are comparing carriers before porting a number",
+    "want a no-frills wireless option",
+    "need a clean mobile-first buying flow",
+    "want to understand tradeoffs quickly",
+    "want a plan that fits a specific budget"
+  ],
+  "angles": [
+    "price clarity",
+    "coverage reassurance",
+    "setup simplicity",
+    "data fit",
+    "switching confidence",
+    "mobile convenience",
+    "monthly predictability",
+    "no-store buying",
+    "decision speed",
+    "plan matching"
+  ],
+  "evidence": [
+    "Visible positions itself around simple wireless service and online management.",
+    "The page explains when the offer fits and when it may not.",
+    "The content includes comparisons, caveats, and practical next steps.",
+    "The FAQ addresses common purchase questions before the CTA."
+  ]
 }
