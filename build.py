@@ -3,151 +3,38 @@ from datetime import date
 from html import escape
 import json
 import re
+import math
 
 ROOT = Path(".")
 TODAY = date.today().isoformat()
 
-BASE_URL = "https://brightlane.github.io/visible"
-AFF_URL = "https://convert.ctypy.com/aff_c?offer_id=29563&aff_id=21885"
-SITE_NAME = "Visible USA Offer"
-BRAND = {
-    "name": "Visible",
-    "official_url": "https://www.visible.com/",
-    "logo": "https://www.visible.com/favicon.ico",
-}
+DATA = json.loads(Path("content.json").read_text(encoding="utf-8"))
 
-HUBS = [
-    {"slug": "review", "title": "Visible Review", "description": "A practical review of Visible for USA visitors."},
-    {"slug": "faq", "title": "Visible FAQ", "description": "Answers to common Visible questions."},
-    {"slug": "alternatives", "title": "Visible Alternatives", "description": "Other wireless options compared with Visible."},
-    {"slug": "guide", "title": "Wireless Guides", "description": "Practical wireless plans and usage guides."},
-    {"slug": "best", "title": "Best Wireless Picks", "description": "Best-of pages by budget, speed, and usage goal."},
-    {"slug": "coverage", "title": "Coverage Pages", "description": "Pages focused on coverage and network questions."},
-    {"slug": "deals", "title": "Deal Pages", "description": "Promotional and savings-focused pages."},
-    {"slug": "switch", "title": "Switching Pages", "description": "Pages for people changing carriers."},
-    {"slug": "data", "title": "Data Plan Pages", "description": "Pages focused on data usage and plan fit."},
-]
+SITE = DATA["site"]
+HUBS = DATA["hubs"]
+HOME = DATA["home"]
+FAQS = DATA["faq"]
+KEYWORDS = DATA["keywords"]
+MODIFIERS = DATA["modifiers"]
+PAGE_TYPES = DATA["page_types"]
 
-FAQS = [
-    {"question": "What is Visible?", "answer": "Visible is a wireless service focused on simple plans, online management, and straightforward pricing."},
-    {"question": "Who is Visible best for?", "answer": "Visible is a strong fit for people who want simple phone service, easy setup, and no-frills plan management."},
-    {"question": "Does Visible use a major network?", "answer": "Visible runs on Verizon's network ecosystem, which is a key reason many shoppers compare it for coverage."},
-    {"question": "Is this site for USA visitors only?", "answer": "Yes. The affiliate offer and page targeting are intended for USA visitors."},
-    {"question": "Can I switch to Visible easily?", "answer": "Many visitors use Visible when they want a simpler mobile plan and a straightforward online signup flow."},
-]
-
-HOME = {
-    "title": "Visible USA Offer | Simple Wireless for USA Visitors",
-    "description": "Discover Visible for USA visitors. Simple wireless plans, straightforward pricing, and an easy online signup flow.",
-    "h1": "Visible for USA Visitors Who Want Simple Wireless",
-    "hero_badge": "Simple plans • Easy signup • USA-only promo",
-    "hero_lead": "If you want a wireless plan that feels simple, modern, and easy to manage, Visible is built for that. It keeps the pitch straightforward and makes the offer easy to understand fast.",
-}
-
-HUB_TEMPLATES = {
-    "review": {
-        "title": "Visible Review for USA Visitors | Is It Worth It?",
-        "description": "A practical Visible review covering features, benefits, who it is for, and how the USA offer works.",
-        "h1": "Visible Review: What USA Visitors Should Know",
-        "hero_badge": "Practical review • USA-focused",
-        "hero_lead": "This page explains what Visible does well, who it is best for, and what to expect before clicking through to the offer.",
-    },
-    "faq": {
-        "title": "Visible FAQ | USA Visitors",
-        "description": "Answers to common questions about Visible, wireless plans, coverage, and the USA offer.",
-        "h1": "Visible FAQ",
-        "hero_badge": "Questions answered clearly",
-        "hero_lead": "Use this page to answer the most common questions users have before they click the offer.",
-    },
-    "alternatives": {
-        "title": "Visible Alternatives | USA Wireless Options",
-        "description": "Compare Visible with other wireless options for USA visitors.",
-        "h1": "Visible Alternatives",
-        "hero_badge": "Comparison page",
-        "hero_lead": "Some users want a direct comparison before they choose a wireless provider.",
-    },
-    "guide": {
-        "title": "Wireless Guides | USA Visitors",
-        "description": "Helpful wireless guides and usage pages for USA visitors.",
-        "h1": "Wireless Guides",
-        "hero_badge": "How-to content",
-        "hero_lead": "These pages answer practical questions and help users make a better plan choice.",
-    },
-    "best": {
-        "title": "Best Wireless Picks | USA Visitors",
-        "description": "Best wireless pages by budget, usage, and situation.",
-        "h1": "Best Wireless Picks",
-        "hero_badge": "Best-of pages",
-        "hero_lead": "These pages target high-intent searches with useful recommendations.",
-    },
-    "coverage": {
-        "title": "Visible Coverage Pages | USA Visitors",
-        "description": "Pages focused on Visible coverage and network questions.",
-        "h1": "Visible Coverage Pages",
-        "hero_badge": "Coverage intent",
-        "hero_lead": "These pages focus on coverage questions that matter before switching.",
-    },
-    "deals": {
-        "title": "Visible Deal Pages | USA Visitors",
-        "description": "Deal and promotion pages for USA visitors.",
-        "h1": "Visible Deal Pages",
-        "hero_badge": "Deal intent",
-        "hero_lead": "These pages are built for users looking for a better offer or signup incentive.",
-    },
-    "switch": {
-        "title": "Visible Switching Pages | USA Visitors",
-        "description": "Pages for people considering a switch to Visible.",
-        "h1": "Visible Switching Pages",
-        "hero_badge": "Switching intent",
-        "hero_lead": "These pages help visitors evaluate what happens when they change carriers.",
-    },
-    "data": {
-        "title": "Visible Data Plan Pages | USA Visitors",
-        "description": "Pages focused on data usage and plan fit.",
-        "h1": "Visible Data Plan Pages",
-        "hero_badge": "Data usage intent",
-        "hero_lead": "These pages help users think through how much data they actually need.",
-    },
-}
-
-PAGE_TYPES = ["best", "guide", "compare", "alternatives"]
-KEYWORDS = [
-    {"slug": "visible-review", "head_term": "Visible review"},
-    {"slug": "visible-coverage", "head_term": "Visible coverage"},
-    {"slug": "visible-deals", "head_term": "Visible deals"},
-    {"slug": "visible-unlimited", "head_term": "Visible unlimited"},
-    {"slug": "visible-data", "head_term": "Visible data"},
-    {"slug": "visible-switch", "head_term": "switch to Visible"},
-    {"slug": "visible-phone-plan", "head_term": "Visible phone plan"},
-    {"slug": "visible-wireless", "head_term": "Visible wireless"},
-    {"slug": "visible-by-verizon", "head_term": "Visible by Verizon"},
-    {"slug": "visible-alternative", "head_term": "Visible alternative"},
-]
-MODIFIERS = [
-    "for beginners",
-    "for adults",
-    "for travelers",
-    "fast",
-    "simple",
-    "at home",
-    "monthly",
-    "with easy signup",
-    "with coverage focus",
-    "for busy people",
-]
+BASE_URL = SITE["base_url"].rstrip("/")
+AFF_URL = SITE["affiliate_url"]
+SITE_NAME = SITE["name"]
+BRAND_NAME = SITE["brand_name"]
 
 CSS = """
 :root{
-  --bg:#07111f; --card:#101a2d; --text:#e5e7eb; --muted:#94a3b8; --line:#23314a;
-  --accent:#22c55e; --shadow:0 24px 70px rgba(0,0,0,.35); --max:1160px;
+  --bg:%(bg)s; --card:%(card)s; --text:%(text)s; --muted:#94a3b8; --line:#23314a;
+  --accent:%(accent)s; --shadow:0 24px 70px rgba(0,0,0,.35); --max:1160px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;font-family:Inter,Arial,Helvetica,sans-serif;
-  background:radial-gradient(circle at top left, rgba(56,189,248,.15), transparent 30%),
-             radial-gradient(circle at top right, rgba(34,197,94,.12), transparent 30%),
-             linear-gradient(180deg,#07111f 0%,#08101d 100%);
+  background:radial-gradient(circle at top left, rgba(56,189,248,.15), transparent 30%%),
+             radial-gradient(circle at top right, rgba(34,197,94,.12), transparent 30%%),
+             linear-gradient(180deg,#07111f 0%%,#08101d 100%%);
   color:var(--text);line-height:1.6;text-rendering:optimizeLegibility;
 }
 a{color:inherit;text-decoration:none}
@@ -178,21 +65,21 @@ h1{margin:12px 0 14px;font-size:clamp(2rem,5vw,4.25rem);line-height:1.02;letter-
 .meta-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px}
 .meta{padding:14px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:#cbd5e1;font-size:.95rem}
 @media (max-width:900px){.hero-inner,.grid,.meta-row{grid-template-columns:1fr}.hero-inner{padding:20px}}
-@media (max-width:640px){.wrap{padding:14px}h1{font-size:clamp(1.9rem,11vw,3rem)}.btns{display:grid;grid-template-columns:1fr}.btn,.mini{width:100%}.sticky .inner{flex-direction:column;align-items:stretch}}
-"""
+@media (max-width:640px){.wrap{padding:14px}h1{font-size:clamp(1.9rem,11vw,3rem)}.btns{display:grid;grid-template-columns:1fr}.btn,.mini{width:100%%}.sticky .inner{flex-direction:column;align-items:stretch}}
+""" % SITE["theme"]
 
-def site_root():
-    return BASE_URL + "/"
+def base_for(slug: str) -> str:
+    return BASE_URL + "/" if not slug else f"{BASE_URL}/{slug}/"
 
-def rel_url(slug):
-    return "./" if slug == "" else f"./{slug}/"
+def rel(url_slug: str) -> str:
+    return "./" if not url_slug else f"./{url_slug}/"
 
-def slugify(text):
+def slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 def related_links(page):
     links = [{"slug": "", "label": "Home"}]
-    for hub in HUBS[:5]:
+    for hub in HUBS[:6]:
         links.append({"slug": hub["slug"], "label": hub["title"]})
     if page["kind"] == "longtail":
         links.extend([
@@ -200,9 +87,9 @@ def related_links(page):
             {"slug": "faq", "label": "Visible FAQ"},
             {"slug": "alternatives", "label": "Visible Alternatives"},
         ])
-    return links[:8]
+    return links[:9]
 
-def build_pages():
+def generate_pages():
     pages = [{
         "slug": "",
         "kind": "home",
@@ -213,54 +100,65 @@ def build_pages():
         "hero_lead": HOME["hero_lead"],
         "facts": ["Audience: USA visitors", "Format: Affiliate landing page", "Promise: Simple wireless", "Goal: Drive clicks"],
     }]
+
     for hub in HUBS:
-        tpl = HUB_TEMPLATES[hub["slug"]]
         pages.append({
             "slug": hub["slug"],
             "kind": "hub",
-            "title": tpl["title"],
-            "description": tpl["description"],
-            "h1": tpl["h1"],
-            "hero_badge": tpl["hero_badge"],
-            "hero_lead": tpl["hero_lead"],
-            "facts": ["Focused topic hub", "Links to long-tail pages", "Built for internal navigation", "Targets a distinct intent"],
+            "title": hub["title"] + " | " + BRAND_NAME,
+            "description": hub["description"],
+            "h1": hub["title"],
+            "hero_badge": "Topic hub",
+            "hero_lead": hub["description"],
+            "facts": ["Focused topic hub", "Supports internal linking", "Built for search intent", "Useful as a category page"],
         })
+
+    combos = []
     for ptype in PAGE_TYPES:
         for kw in KEYWORDS:
             for mod in MODIFIERS:
-                pages.append({
-                    "slug": f"{ptype}/{kw['slug']}-{slugify(mod)}",
-                    "kind": "longtail",
-                    "page_type": ptype,
-                    "keyword": kw["head_term"],
-                    "modifier": mod,
-                    "title": f"{kw['head_term'].title()} {mod.title()} | Visible USA",
-                    "description": f"Learn about {kw['head_term']} {mod} with Visible.",
-                    "h1": f"{kw['head_term'].title()} {mod.title()}",
-                    "hero_badge": f"{ptype.title()} page • USA visitors",
-                    "hero_lead": f"This page targets {kw['head_term']} {mod} and explains how Visible fits that use case.",
-                    "facts": [
-                        f"Service focus: {kw['head_term']}",
-                        f"Use case: {mod}",
-                        f"Intent family: {ptype}",
-                        "Affiliate offer included",
-                    ],
-                })
+                combos.append((ptype, kw, mod))
+
+    target_total = 1000
+    needed = target_total - len(pages)
+    combos = combos[:max(0, needed)]
+
+    for ptype, kw, mod in combos:
+        slug = f"{ptype}/{kw['slug']}-{slugify(mod)}"
+        pages.append({
+            "slug": slug,
+            "kind": "longtail",
+            "page_type": ptype,
+            "keyword": kw["head_term"],
+            "modifier": mod,
+            "title": f"{kw['head_term'].title()} {mod.title()} | Visible USA",
+            "description": f"Learn about {kw['head_term']} {mod} with Visible.",
+            "h1": f"{kw['head_term'].title()} {mod.title()}",
+            "hero_badge": f"{ptype.title()} page • USA visitors",
+            "hero_lead": f"This page targets {kw['head_term']} {mod} and explains how Visible fits that use case.",
+            "facts": [
+                f"Service focus: {kw['head_term']}",
+                f"Use case: {mod}",
+                f"Intent family: {ptype}",
+                "Affiliate offer included",
+            ],
+        })
+
     return pages
 
-def quality_score(page, body_text, links):
+def score_page(page, body_text, links):
     score = 0
-    score += 30 if page.get("title") else 0
+    score += 25 if page.get("title") else 0
     score += 20 if page.get("description") else 0
     score += 20 if len(body_text.split()) >= 120 else 0
-    score += 10 if len(page.get("facts", [])) >= 3 else 0
+    score += 15 if len(page.get("facts", [])) >= 3 else 0
     score += 10 if len(links) >= 5 else 0
     score += 10
     return score
 
 def render_body(page):
     if page["kind"] == "home":
-        faqs = "".join(
+        faq_html = "".join(
             f'<article class="faq-item"><h3>{escape(item["question"])}</h3><p>{escape(item["answer"])}</p></article>'
             for item in FAQS
         )
@@ -278,7 +176,7 @@ def render_body(page):
         </section>
         <section class="card faq" id="faq">
           <h2>Frequently Asked Questions</h2>
-          {faqs}
+          {faq_html}
         </section>
         """
     if page["kind"] == "hub":
@@ -290,7 +188,7 @@ def render_body(page):
         </section>
         """
     facts = "".join(f"<li>{escape(f)}</li>" for f in page["facts"])
-    links = "".join(f'<a class="btn secondary" href="{rel_url(l["slug"])}">{escape(l["label"])}</a>' for l in related_links(page))
+    links = "".join(f'<a class="btn secondary" href="{rel(l["slug"])}">{escape(l["label"])}</a>' for l in related_links(page))
     return f"""
     <section class="grid" id="details">
       <article class="card"><h2>Core angle</h2><p>{escape(page['keyword'])} {escape(page['modifier'])} with Visible.</p></article>
@@ -304,17 +202,18 @@ def render_body(page):
     """
 
 def render_page(page):
-    canonical = f"{site_root()}" if page["slug"] == "" else f"{site_root()}{page['slug']}/"
+    canonical = base_for(page["slug"])
     body = render_body(page)
     body_text = re.sub(r"<[^>]+>", " ", body)
     links = related_links(page)
-    score = quality_score(page, body_text, links)
+    score = score_page(page, body_text, links)
     indexable = score >= 80
     robots = "index,follow" if indexable else "noindex,nofollow"
+
     graph = [
-        {"@type": "Organization", "name": SITE_NAME, "url": site_root(), "logo": BRAND["logo"]},
-        {"@type": "WebSite", "name": SITE_NAME, "url": site_root()},
-        {"@type": "WebPage", "name": page["title"], "url": canonical, "description": page["description"], "inLanguage": "en-US"},
+        {"@type": "Organization", "name": SITE_NAME, "url": base_for(""), "logo": "https://www.visible.com/favicon.ico"},
+        {"@type": "WebSite", "name": SITE_NAME, "url": base_for("")},
+        {"@type": "WebPage", "name": page["title"], "url": canonical, "description": page["description"], "inLanguage": SITE["locale"]},
     ]
     if page["kind"] == "home":
         graph.append({
@@ -324,8 +223,11 @@ def render_page(page):
                 for item in FAQS
             ],
         })
+
+    nav = "".join(f'<a href="{rel(h["slug"])}">{escape(h["title"])}</a>' for h in HUBS)
+
     return f"""<!doctype html>
-<html lang="en-US">
+<html lang="{SITE["locale"]}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -334,7 +236,7 @@ def render_page(page):
   <meta name="robots" content="{robots},max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="{canonical}">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="en_US">
+  <meta property="og:locale" content="{SITE["locale"].replace('-', '_')}">
   <meta property="og:site_name" content="{escape(SITE_NAME)}">
   <meta property="og:title" content="{escape(page["title"])}">
   <meta property="og:description" content="{escape(page["description"])}">
@@ -344,7 +246,7 @@ def render_page(page):
 </head>
 <body>
   <div class="wrap">
-    <nav class="nav">{''.join(f'<a href="{rel_url(h["slug"])}">{escape(h["title"])}</a>' for h in HUBS)}</nav>
+    <nav class="nav">{nav}</nav>
     <main class="hero">
       <div class="hero-inner">
         <section>
@@ -379,22 +281,22 @@ def render_page(page):
 </body>
 </html>"""
 
-PAGES = build_pages()
+PAGES = generate_pages()
 
 for page in PAGES:
     out_dir = ROOT if page["slug"] == "" else ROOT / page["slug"]
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "index.html").write_text(render_page(page), encoding="utf-8")
 
-(ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {site_root()}sitemap.xml\n", encoding="utf-8")
+(ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base_for('')}sitemap.xml\n", encoding="utf-8")
 (ROOT / "llms.txt").write_text(f"# {SITE_NAME}\n\nA programmatic affiliate site for USA visitors that explains Visible and targets long-tail wireless intent.\n", encoding="utf-8")
-(ROOT / "404.html").write_text(f"<!doctype html><html><head><meta charset='utf-8'><meta name='robots' content='noindex,nofollow'><meta http-equiv='refresh' content='5;url={site_root()}'></head><body><p>Page not found.</p></body></html>", encoding="utf-8")
+(ROOT / "404.html").write_text(f"<!doctype html><html><head><meta charset='utf-8'><meta name='robots' content='noindex,nofollow'><meta http-equiv='refresh' content='5;url={base_for('')}'></head><body><p>Page not found.</p></body></html>", encoding="utf-8")
+(ROOT / ".nojekyll").write_text("", encoding="utf-8")
 
 sitemap = ["<?xml version='1.0' encoding='UTF-8'?>", "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>"]
 for page in PAGES:
-    loc = site_root() if page["slug"] == "" else f"{site_root()}{page['slug']}/"
-    sitemap.append(f"  <url><loc>{loc}</loc><lastmod>{TODAY}</lastmod></url>")
+    sitemap.append(f"  <url><loc>{base_for(page['slug'])}</loc><lastmod>{TODAY}</lastmod></url>")
 sitemap.append("</urlset>")
 (ROOT / "sitemap.xml").write_text("\n".join(sitemap), encoding="utf-8")
-(ROOT / ".nojekyll").write_text("", encoding="utf-8")
-print(f"Built {len(PAGES)} pages into repo root")
+
+print(f"Built {len(PAGES)} pages.")
