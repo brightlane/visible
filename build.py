@@ -5,21 +5,68 @@ import json
 import re
 
 ROOT = Path(".")
-DATA = json.loads(Path("content.json").read_text(encoding="utf-8"))
-
-SITE = DATA["site"]
-BASE_URL = SITE["base_url"].rstrip("/")
-AFF_URL = SITE["affiliate_url"]
 TODAY = date.today().isoformat()
 
-HUBS = DATA["hubs"]
-HOME = DATA["home"]
-FAQS = DATA["faq"]
-PAGE_TYPES = DATA["page_types"]
-AUDIENCES = DATA["audiences"]
-PROBLEMS = DATA["problems"]
-ANGLES = DATA["angles"]
-EVIDENCE = DATA["evidence"]
+SITE = {
+    "name": "Visible USA Offer",
+    "base_url": "https://brightlane.github.io/visible",
+    "brand_name": "Visible",
+    "official_url": "https://www.visible.com/",
+    "affiliate_url": "https://convert.ctypy.com/aff_c?offer_id=29563&aff_id=21885",
+    "locale": "en-US",
+    "country": "US",
+    "description": "A data-driven Visible affiliate site for USA visitors."
+}
+
+HUBS = [
+    {"slug": "review", "title": "Visible Review", "description": "A practical review of Visible for USA visitors."},
+    {"slug": "faq", "title": "Visible FAQ", "description": "Answers to common Visible questions."},
+    {"slug": "alternatives", "title": "Visible Alternatives", "description": "Other wireless options compared with Visible."},
+    {"slug": "guide", "title": "Wireless Guides", "description": "Practical wireless plans and usage guides."},
+    {"slug": "best", "title": "Best Wireless Picks", "description": "Best-of pages by budget, speed, and usage goal."},
+    {"slug": "coverage", "title": "Coverage Pages", "description": "Pages focused on coverage and network questions."},
+    {"slug": "deals", "title": "Deal Pages", "description": "Promotional and savings-focused pages."},
+    {"slug": "switch", "title": "Switching Pages", "description": "Pages for people changing carriers."},
+    {"slug": "data", "title": "Data Plan Pages", "description": "Pages focused on data usage and plan fit."}
+]
+
+HOME = {
+    "title": "Visible USA Offer | Simple Wireless for USA Visitors",
+    "description": "Discover Visible for USA visitors. Simple wireless plans, straightforward pricing, and an easy online signup flow.",
+    "h1": "Visible for USA Visitors Who Want Simple Wireless",
+    "hero_badge": "Simple plans • Easy signup • USA-only promo",
+    "hero_lead": "If you want a wireless plan that feels simple, modern, and easy to manage, Visible is built for that. It keeps the pitch straightforward and makes the offer easy to understand fast."
+}
+
+FAQS = [
+    ("What is Visible?", "Visible is a wireless service focused on simple plans, online management, and straightforward pricing."),
+    ("Who is Visible best for?", "Visible is a strong fit for people who want simple phone service, easy setup, and no-frills plan management."),
+    ("Does Visible use a major network?", "Visible runs on Verizon's network ecosystem, which is a key reason many shoppers compare it for coverage."),
+    ("Is this site for USA visitors only?", "Yes. The affiliate offer and page targeting are intended for USA visitors."),
+    ("Can I switch to Visible easily?", "Many visitors use Visible when they want a simpler mobile plan and a straightforward online signup flow.")
+]
+
+PAGE_TYPES = ["best", "guide", "compare", "alternatives", "faq", "coverage", "deals", "switch", "data", "review"]
+AUDIENCES = ["budget shoppers", "travelers", "families", "single-line users", "heavy data users", "light data users", "streamers", "remote workers", "seniors", "students"]
+PROBLEMS = [
+    "want a lower monthly phone bill",
+    "need coverage confidence before switching",
+    "want simple setup without store visits",
+    "need enough data for streaming",
+    "want a plan that is easy to manage",
+    "are comparing carriers before porting a number",
+    "want a no-frills wireless option",
+    "need a clean mobile-first buying flow",
+    "want to understand tradeoffs quickly",
+    "want a plan that fits a specific budget"
+]
+ANGLES = ["price clarity", "coverage reassurance", "setup simplicity", "data fit", "switching confidence", "mobile convenience", "monthly predictability", "no-store buying", "decision speed", "plan matching"]
+EVIDENCE = [
+    "Visible positions itself around simple wireless service and online management.",
+    "The page explains when the offer fits and when it may not.",
+    "The content includes comparisons, caveats, and practical next steps.",
+    "The FAQ addresses common purchase questions before the CTA."
+]
 
 CSS = """
 :root{
@@ -67,7 +114,7 @@ h1{margin:12px 0 14px;font-size:clamp(2rem,5vw,4.25rem);line-height:1.02;letter-
 """
 
 def base_for(slug):
-    return BASE_URL + "/" if not slug else f"{BASE_URL}/{slug}/"
+    return SITE["base_url"].rstrip("/") + "/" if not slug else f'{SITE["base_url"].rstrip("/")}/{slug}/'
 
 def rel(slug):
     return "./" if not slug else f"./{slug}/"
@@ -75,8 +122,7 @@ def rel(slug):
 def page_slug(ptype, idx):
     return f"{ptype}/{ptype}-{idx+1:03d}"
 
-PAGES = []
-PAGES.append({
+PAGES = [{
     "slug": "",
     "kind": "home",
     "title": HOME["title"],
@@ -84,7 +130,7 @@ PAGES.append({
     "h1": HOME["h1"],
     "hero_badge": HOME["hero_badge"],
     "hero_lead": HOME["hero_lead"],
-})
+}]
 
 for h in HUBS:
     PAGES.append({
@@ -141,14 +187,12 @@ def render_faq(items):
     )
 
 def related(page):
-    if page["kind"] == "longtail":
-        return [
-            {"slug": "review", "label": "Visible Review"},
-            {"slug": "faq", "label": "Visible FAQ"},
-            {"slug": "alternatives", "label": "Visible Alternatives"},
-            {"slug": "guide", "label": "Wireless Guides"},
-        ]
-    return []
+    return [
+        {"slug": "review", "label": "Visible Review"},
+        {"slug": "faq", "label": "Visible FAQ"},
+        {"slug": "alternatives", "label": "Visible Alternatives"},
+        {"slug": "guide", "label": "Wireless Guides"},
+    ] if page["kind"] == "longtail" else []
 
 def render_body(page):
     if page["kind"] == "home":
@@ -175,16 +219,6 @@ def render_body(page):
         """
 
     if page["kind"] == "hub":
-        hub_text = {
-            "review": (
-                "What a review should cover",
-                "Pricing logic, who it fits, where it falls short, and when another plan may be better.",
-                "What makes this page useful",
-                "It gives readers a quick yes-or-no frame instead of only pushing the CTA.",
-                "Where to go next",
-                "Use the long-tail review pages for deeper intent matches.",
-            ),
-        }
         if page["slug"] == "review":
             return """
             <section class="grid" id="details">
@@ -317,8 +351,6 @@ def render_page(page):
   </div>
 </body>
 </html>"""
-
-PAGES = PAGES
 
 for page in PAGES:
     out_dir = ROOT if page["slug"] == "" else ROOT / page["slug"]
