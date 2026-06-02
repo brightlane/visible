@@ -2,7 +2,6 @@ from pathlib import Path
 from datetime import date
 from html import escape
 import json
-import re
 
 ROOT = Path(".")
 TODAY = date.today().isoformat()
