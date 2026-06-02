@@ -17,6 +17,7 @@ SITE = {
     "country": "US",
     "description": "A data-driven Visible affiliate site for USA visitors."
 }
+AFF_URL = SITE["affiliate_url"]
 
 HUBS = [
     {"slug": "review", "title": "Visible Review", "description": "A practical review of Visible for USA visitors."},
@@ -358,14 +359,8 @@ for page in PAGES:
     (out_dir / "index.html").write_text(render_page(page), encoding="utf-8")
 
 (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {base_for('')}sitemap.xml\n", encoding="utf-8")
-(ROOT / "llms.txt").write_text(
-    f"# {SITE['name']}\n\nA programmatic affiliate site for USA visitors that explains Visible and targets long-tail wireless intent.\n",
-    encoding="utf-8",
-)
-(ROOT / "404.html").write_text(
-    f"<!doctype html><html><head><meta charset='utf-8'><meta name='robots' content='noindex,nofollow'><meta http-equiv='refresh' content='5;url={base_for('')}'></head><body><p>Page not found.</p></body></html>",
-    encoding="utf-8",
-)
+(ROOT / "llms.txt").write_text(f"# {SITE['name']}\n\nA programmatic affiliate site for USA visitors that explains Visible and targets long-tail wireless intent.\n", encoding="utf-8")
+(ROOT / "404.html").write_text(f"<!doctype html><html><head><meta charset='utf-8'><meta name='robots' content='noindex,nofollow'><meta http-equiv='refresh' content='5;url={base_for('')}'></head><body><p>Page not found.</p></body></html>", encoding="utf-8")
 (ROOT / ".nojekyll").write_text("", encoding="utf-8")
 
 sitemap = ["<?xml version='1.0' encoding='UTF-8'?>", "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>"]
